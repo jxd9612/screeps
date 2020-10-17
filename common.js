@@ -3,8 +3,8 @@ Object.assign(global, {
 
     ROOM0_NAME: 'E41S36',
 
-    HARVESTER_0: 'harvester_0',
-    HARVESTER_1: 'harvester_1',
+    HARVESTER_TYPE0: 'harvester0',
+    HARVESTER_TYPE1: 'harvester1',
     HARVESTER: 'harvester',
     UPGRADER: 'upgrader',
     BUILDER: 'builder',
@@ -13,49 +13,10 @@ Object.assign(global, {
     SOURCE_ID0: '5bbcaf669099fc012e63a8c7',
     SOURCE_ID1: '5bbcaf669099fc012e63a8c8',
 
-    LINK_ID0: '5f7ecafa4773f4ace5ce23cc',
-    LINK_ID1: '5f7ec855e99f95f19f6fccb5',
-
-    CONTAINER_ID0: '5f82831cc2eabd4a01403f58',
-    CONTAINER_ID1: '5f830ed89a02e36dd578fca7',
-    CONTAINER_ID2: '5f84589ac91070446ea050f2',
+    TYPE_REFUEL: 0, // 补给类任务
+    TYPE_GET_SOURCE: 1, // 获取资源类任务
+    TYPE_REPAIR: 2, // 维护类任务
+    STATUS_IDLE: 0, // 空闲状态
+    STATUS_EXECUTING: 1, // 执行状态
+    STATUS_SAME: 2, // 多creep执行状态
 });
-
-// const SPAWN_NAME = 'JXD0';
-
-// const ROOM_NAME_1 = 'W9S28';
-// const ROOM_NAME_2 = 'W9S27';
-
-// const HARVESTER_0 = 'harvester_0';
-// const HARVESTER_1 = 'harvester_1';
-// const UPGRADER = 'upgrader';
-// const BUILDER = 'builder';
-// const TRANSPORTER = 'transporter';
-
-// const SOURCE_ID0 = '5bbcac659099fc012e635651';
-// const SOURCE_ID1 = '5bbcac659099fc012e635653';
-
-// const LINK_ID0 = '5f7ecafa4773f4ace5ce23cc';
-// const LINK_ID1 = '5f7ec855e99f95f19f6fccb5';
-
-// const CONTAINER_ID0 = '5f82831cc2eabd4a01403f58';
-// const CONTAINER_ID1 = '5f830ed89a02e36dd578fca7';
-// const CONTAINER_ID2 = '5f84589ac91070446ea050f2';
-
-// module.exports = {
-//     SPAWN_NAME,
-//     ROOM_NAME_1,
-//     ROOM_NAME_2,
-//     HARVESTER_0,
-//     HARVESTER_1,
-//     UPGRADER,
-//     BUILDER,
-//     TRANSPORTER,
-//     SOURCE_ID0,
-//     SOURCE_ID1,
-//     LINK_ID0,
-//     LINK_ID1,
-//     CONTAINER_ID0,
-//     CONTAINER_ID1,
-//     CONTAINER_ID2,
-// }

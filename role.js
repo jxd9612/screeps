@@ -3,7 +3,7 @@ class Role {
 
     checkLive() {
         // 当 spawn 生产 creep 时，终止 renew 操作
-        if (Game.spawns[SPAWN_NAME].spawning || this.creep.room.energyAvailable === 0) {
+        if (Game.spawns[SPAWN_NAME_0].spawning || this.creep.room.energyAvailable === 0) {
             this.creep.memory.isRenew = false;
             return;
         }
@@ -12,8 +12,8 @@ class Role {
             this.creep.memory.isWorking = false;
         }
         if (this.creep.memory.isRenew) {
-            if (Game.spawns[SPAWN_NAME].renewCreep(this.creep) === ERR_NOT_IN_RANGE) {
-                this.creep.moveTo(Game.spawns[SPAWN_NAME]);
+            if (Game.spawns[SPAWN_NAME_0].renewCreep(this.creep) === ERR_NOT_IN_RANGE) {
+                this.creep.moveTo(Game.spawns[SPAWN_NAME_0]);
             }
             if (this.creep.ticksToLive > 1000) {
                 this.creep.memory.isRenew = false;

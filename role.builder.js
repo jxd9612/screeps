@@ -9,7 +9,7 @@ class Builder extends Role {
     run(creep) {
         this.creep = creep;
         if (!this.creep.memory.isWorking) {
-            this.getSource(SOURCE_ID1);
+            this.getSourceFromStorage();
         } else {
             this.buildStructure();
         }
@@ -17,34 +17,6 @@ class Builder extends Role {
             this.creep.memory.isWorking = false;
         }
     }
-
-    getSource(targetId) {
-        const sourceTarget = Game.getObjectById(targetId);
-        if (sourceTarget) {
-            const status = this.creep.harvest(sourceTarget);
-            if (status === ERR_NOT_IN_RANGE) {
-                this.creep.moveTo(sourceTarget);
-            }
-        } else {
-            console.log('该 source 不存在！');
-        }
-        // 能量收集满后，切换状态
-        if (this.creep.store[RESOURCE_ENERGY] === this.creep.store.getCapacity()) {
-            this.creep.memory.isWorking = true;
-        }
-    }
-
-    // run(creep) {
-    //     this.creep = creep;
-    //     if (!this.creep.memory.isWorking) {
-    //         this.getSourceFromStorage();
-    //     } else {
-    //         this.buildStructure();
-    //     }
-    //     if (this.creep.store[RESOURCE_ENERGY] === 0) {
-    //         this.creep.memory.isWorking = false;
-    //     }
-    // }
 
     buildStructure() {
         const buildTarget = this.creep.pos.findClosestByPath(FIND_MY_CONSTRUCTION_SITES);
@@ -65,18 +37,8 @@ class Builder extends Role {
                 this.creep.moveTo(containerTargets[0])
             }
         } else {
-            // this.repairWall();
-            const refuelTarget = this.creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
-                filter: o => o.structureType === STRUCTURE_TOWER && o.energy < o.energyCapacity * 0.5
-            });
-            if (refuelTarget) {
-                if (this.creep.transfer(refuelTarget, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-                    this.creep.moveTo(refuelTarget);
-                }
-            } else {
-                if (this.creep.upgradeController(this.creep.room.controller) === ERR_NOT_IN_RANGE) {
-                    this.creep.moveTo(this.creep.room.controller);
-                }
+            if (this.creep.upgradeController(this.creep.room.controller) === ERR_NOT_IN_RANGE) {
+                this.creep.moveTo(this.creep.room.controller);
             }
         }
     }

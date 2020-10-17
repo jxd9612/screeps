@@ -1,8 +1,8 @@
 const Role = require('role');
 
-const LOCATION_0 = { x: 23, y: 23 };
-const LOCATION_1 = { x: 5, y: 45 };
-const LOCATION_2 = { x: 4, y: 44 };
+const LOCATION_0 = { x: 40, y: 28 };
+const LOCATION_1 = { x: 41, y: 28 };
+const LOCATION_2 = { x: 27, y: 14 };
 
 class Harvester extends Role {
     constructor() {
@@ -11,69 +11,57 @@ class Harvester extends Role {
 
     run(creep) {
         this.creep = creep;
-        if (!this.creep.memory.isWorking) {
-            this.getSource(SOURCE_ID0);
+
+        if (this.creep.memory.role === HARVESTER_TYPE0) {
+            this.onlyWork();
         } else {
-            const target = this.creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
-                filter: item => (item.structureType === STRUCTURE_EXTENSION || item.structureType === STRUCTURE_SPAWN) && item.energy < item.energyCapacity
-            });
-            if (target) {
-                if (this.creep.transfer(target, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-                    this.creep.moveTo(target);
-                }
-            } else {
-                const buildTarget = this.creep.pos.findClosestByPath(FIND_MY_CONSTRUCTION_SITES);
-                if (buildTarget) {
-                    if (this.creep.build(buildTarget) === ERR_NOT_IN_RANGE) {
-                        this.creep.moveTo(buildTarget);
-                    }
-                } else {
-                    if (this.creep.upgradeController(this.creep.room.controller) === ERR_NOT_IN_RANGE) {
-                        this.creep.moveTo(this.creep.room.controller);
-                    }
-                }
-            }
-        }
-        if (this.creep.store[RESOURCE_ENERGY] === 0) {
-            this.creep.memory.isWorking = false;
+            this.work();
         }
     }
 
-    // run(creep, belong) {
-    //     this.creep = creep;
-    //     this.belong = belong;
-    //     if (this.belong === HARVESTER_0) {
-    //         if (!this.creep.memory.isWorking) {
-    //             this.getSource(SOURCE_ID0, LOCATION_0);
-    //         } else {
-    //             // this.transferSourceToStorage();
-    //             this.transferSourceToLink(LINK_ID0);
-    //         }
-    //     } else if (this.belong === HARVESTER_1) {
-    //         if (!this.creep.memory.isWorking) {
-    //             const target = Game.getObjectById(CONTAINER_ID0);
-    //             if (target.store[RESOURCE_ENERGY] === target.store.getCapacity()) {
-    //                 this.getSource(SOURCE_ID1, LOCATION_2);
-    //             } else {
-    //                 this.getSource(SOURCE_ID1, LOCATION_1);
-    //             }
-    //         } else {
-    //             this.transferSourceToContainer(CONTAINER_ID0);
-    //         }
-    //     }
-    // }
+    work() {
+        // if (!this.creep.memory.isWorking) {
+        //     this.getSource(SOURCE_ID0);
+        // } else {
+        //     if (this.creep.upgradeController(this.creep.room.controller) === ERR_NOT_IN_RANGE) {
+        //         this.creep.moveTo(this.creep.room.controller);
+        //     }
+        // }
+        // if (this.creep.store[RESOURCE_ENERGY] === 0) {
+        //     this.creep.memory.isWorking = false;
+        // }
+        const containerTarget = this.creep.room.find(FIND_STRUCTURES, {
+            filter: o => o.structureType === STRUCTURE_CONTAINER && o.pos.x === LOCATION_2.x && o.pos.y === LOCATION_2.y
+        })
+        if (containerTarget) {
+            this.getSource(SOURCE_ID0, [containerTarget[0].pos.x, containerTarget[0].pos.y]);
+        }
+    }
+
+    onlyWork() {
+        const containerTarget = this.creep.room.find(FIND_STRUCTURES, {
+            filter: o => o.structureType === STRUCTURE_CONTAINER && o.store[RESOURCE_ENERGY] < o.store.getCapacity() &&
+                        ((o.pos.x === LOCATION_0.x && o.pos.y === LOCATION_0.y) || (o.pos.x === LOCATION_1.x && o.pos.y === LOCATION_1.y))
+        })
+        if (containerTarget) {
+            this.getSource(SOURCE_ID1, [containerTarget[0].pos.x, containerTarget[0].pos.y]);
+        }
+    }
 
     // 获取能量
-    getSource(targetId) {
+    getSource(targetId, pos) {
         const sourceTarget = Game.getObjectById(targetId);
         if (sourceTarget) {
-            const status = this.creep.harvest(sourceTarget);
-            if (status === ERR_NOT_IN_RANGE) {
+            this.creep.harvest(sourceTarget);
+            if (pos) {
+                this.creep.moveTo(pos[0], pos[1]);
+            } else {
                 this.creep.moveTo(sourceTarget);
             }
         } else {
             console.log('该 source 不存在！');
         }
+        if (this.creep.memory.role === HARVESTER_TYPE0) return;
         // 能量收集满后，切换状态
         if (this.creep.store[RESOURCE_ENERGY] === this.creep.store.getCapacity()) {
             this.creep.memory.isWorking = true;
