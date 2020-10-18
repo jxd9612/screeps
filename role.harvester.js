@@ -33,7 +33,7 @@ class Harvester extends Role {
         const containerTarget = this.creep.room.find(FIND_STRUCTURES, {
             filter: o => o.structureType === STRUCTURE_CONTAINER && o.pos.x === LOCATION_2.x && o.pos.y === LOCATION_2.y
         })
-        if (containerTarget) {
+        if (containerTarget.length) {
             this.getSource(SOURCE_ID0, [containerTarget[0].pos.x, containerTarget[0].pos.y]);
         }
     }
@@ -43,7 +43,7 @@ class Harvester extends Role {
             filter: o => o.structureType === STRUCTURE_CONTAINER && o.store[RESOURCE_ENERGY] < o.store.getCapacity() &&
                         ((o.pos.x === LOCATION_0.x && o.pos.y === LOCATION_0.y) || (o.pos.x === LOCATION_1.x && o.pos.y === LOCATION_1.y))
         })
-        if (containerTarget) {
+        if (containerTarget.length) {
             this.getSource(SOURCE_ID1, [containerTarget[0].pos.x, containerTarget[0].pos.y]);
         }
     }
