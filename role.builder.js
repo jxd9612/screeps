@@ -8,13 +8,14 @@ class Builder extends Role {
 
     run(creep) {
         this.creep = creep;
+
+        if (this.creep.store[RESOURCE_ENERGY] === 0) {
+            this.creep.memory.isWorking = false;
+        }
         if (!this.creep.memory.isWorking) {
             this.getSourceFromStorage();
         } else {
             this.buildStructure();
-        }
-        if (this.creep.store[RESOURCE_ENERGY] === 0) {
-            this.creep.memory.isWorking = false;
         }
     }
 
@@ -37,21 +38,27 @@ class Builder extends Role {
                 this.creep.moveTo(containerTargets[0])
             }
         } else {
-            if (this.creep.upgradeController(this.creep.room.controller) === ERR_NOT_IN_RANGE) {
-                this.creep.moveTo(this.creep.room.controller);
-            }
+            // if (this.creep.upgradeController(this.creep.room.controller) === ERR_NOT_IN_RANGE) {
+            //     this.creep.moveTo(this.creep.room.controller);
+            // }
+            this.reinforce();
         }
     }
 
-    // 维修城墙
-    repairWall() {
-        const wallTarget = this.creep.pos.findClosestByPath(FIND_STRUCTURES, { filter: item => item.structureType === STRUCTURE_WALL && item.hits < 3000000 });
-        if (wallTarget) {
-            if (this.creep.repair(wallTarget) === ERR_NOT_IN_RANGE) {
-                this.creep.moveTo(wallTarget)
+    // 刷墙
+    reinforce() {
+        // const targets = this.creep.room.find(FIND_STRUCTURES, {
+        //     filter: o => (o.structureType === STRUCTURE_WALL || o.structureType === STRUCTURE_RAMPART) && o.hits < 300000
+        // });
+        const targets = this.creep.room.find(FIND_STRUCTURES, {
+            filter: o => o.structureType === STRUCTURE_RAMPART && o.hits < 1000000
+        });
+        if (targets.length) {
+            if (this.creep.repair(targets[0]) === ERR_NOT_IN_RANGE) {
+                this.creep.moveTo(targets[0]);
             }
         } else {
-            this.creep.say('等待任务...');
+            this.creep.say('...');
         }
     }
 }

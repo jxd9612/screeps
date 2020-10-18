@@ -20,21 +20,24 @@ class Harvester extends Role {
     }
 
     work() {
-        // if (!this.creep.memory.isWorking) {
-        //     this.getSource(SOURCE_ID0);
-        // } else {
-        //     if (this.creep.upgradeController(this.creep.room.controller) === ERR_NOT_IN_RANGE) {
-        //         this.creep.moveTo(this.creep.room.controller);
-        //     }
-        // }
-        // if (this.creep.store[RESOURCE_ENERGY] === 0) {
-        //     this.creep.memory.isWorking = false;
-        // }
-        const containerTarget = this.creep.room.find(FIND_STRUCTURES, {
-            filter: o => o.structureType === STRUCTURE_CONTAINER && o.pos.x === LOCATION_2.x && o.pos.y === LOCATION_2.y
-        })
-        if (containerTarget.length) {
-            this.getSource(SOURCE_ID0, [containerTarget[0].pos.x, containerTarget[0].pos.y]);
+        if (this.creep.store[RESOURCE_ENERGY] === 0) {
+            this.creep.memory.isWorking = false;
+        }
+        if (!this.creep.memory.isWorking) {
+            this.getSource(SOURCE_ID0, [LOCATION_2.x, LOCATION_2.y]);
+        } else {
+            const linkTarget = Game.getObjectById(LINK_ID0);
+            if (linkTarget.store[RESOURCE_ENERGY] < 800) {
+                this.creep.transfer(linkTarget, RESOURCE_ENERGY);
+            } else {
+                // this.transferSourceToContainer('5f8ab50bfe35864cd6408307');
+                const containerTarget = this.creep.room.find(FIND_STRUCTURES, {
+                    filter: o => o.structureType === STRUCTURE_CONTAINER && o.store[RESOURCE_ENERGY] < o.store.getCapacity() && o.pos.x === LOCATION_2.x && o.pos.y === LOCATION_2.y
+                });
+                if (containerTarget.length) {
+                    this.creep.transfer(containerTarget[0], RESOURCE_ENERGY);
+                }
+            }
         }
     }
 

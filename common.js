@@ -13,6 +13,9 @@ Object.assign(global, {
     SOURCE_ID0: '5bbcaf669099fc012e63a8c7',
     SOURCE_ID1: '5bbcaf669099fc012e63a8c8',
 
+    LINK_ID0: '5f8c4ec4fa81e069c9280ddf',
+    LINK_ID1: '5f8c54892207402dd7ffae32',
+
     TYPE_REFUEL: 0, // 补给类任务
     TYPE_GET_SOURCE: 1, // 获取资源类任务
     TYPE_REPAIR: 2, // 维护类任务

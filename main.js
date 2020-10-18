@@ -23,14 +23,14 @@ module.exports.loop = function () {
         }
     });
 
-    // const resouceLink = Game.rooms[ROOM0_NAME].find(FIND_MY_STRUCTURES, { filter: item => item.id === LINK_ID0 })[0];
-    // if (resouceLink.store[RESOURCE_ENERGY] >= 500) {
-    //     const targetLink = Game.rooms[ROOM0_NAME].find(FIND_MY_STRUCTURES, { filter: item => item.id === LINK_ID1 })[0];
-    //     if (targetLink.store[RESOURCE_ENERGY] <= 400) resouceLink.transferEnergy(targetLink);
-    // }
-
     utils.tower.run();
     utils.spawnCreep.run();
+
+    const resouceLink = Game.getObjectById(LINK_ID0);;
+    if (resouceLink.store[RESOURCE_ENERGY] >= 310) {
+        const targetLink = Game.getObjectById(LINK_ID1);
+        if (targetLink.store[RESOURCE_ENERGY] < 600) resouceLink.transferEnergy(targetLink, 310);
+    }
 
     Object.keys(Game.creeps).forEach(name => {
         const creep = Game.creeps[name];
