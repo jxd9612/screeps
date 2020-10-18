@@ -37,13 +37,13 @@ const spawnCreep = {
                 `${HARVESTER_TYPE0}`,
                 { memory: { role: HARVESTER_TYPE0, isWorking: false }
             });
-        } else if (builderCount < 1 && !isSpawning) {
+        } else if (builderCount < 3 && !isSpawning) {
             Game.spawns[SPAWN_NAME_0].spawnCreep(
                 [WORK, WORK, WORK, WORK, CARRY, CARRY, MOVE, MOVE, MOVE],
                 `${BUILDER}_${Game.time}`,
                 { memory: { role: BUILDER, isWorking: false }
             });
-        } else if (upgraderCount < 2 && !isSpawning) {
+        } else if (upgraderCount < 5 && !isSpawning) {
             Game.spawns[SPAWN_NAME_0].spawnCreep(
                 [WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE],
                 `${UPGRADER}_${Game.time}`,

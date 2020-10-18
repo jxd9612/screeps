@@ -77,11 +77,15 @@ class Role {
     getSourceFromContainer(targetId, amount) {
         const containerTarget = Game.getObjectById(targetId);
         if (containerTarget) {
-            const status = this.creep.withdraw(containerTarget, RESOURCE_ENERGY, amount);
-            if (status === ERR_NOT_IN_RANGE) {
-                this.creep.moveTo(containerTarget);
-            } else if (status === ERR_NOT_ENOUGH_RESOURCES) {
-                this.creep.say('...');
+            if (containerTarget.store[RESOURCE_ENERGY] < 200) {
+                this.getSourceFromStorage();
+            } else {
+                const status = this.creep.withdraw(containerTarget, RESOURCE_ENERGY, amount);
+                if (status === ERR_NOT_IN_RANGE) {
+                    this.creep.moveTo(containerTarget);
+                } else if (status === ERR_NOT_ENOUGH_RESOURCES) {
+                    this.creep.say('...');
+                }
             }
         } else {
             console.log('该 container 不存在！');
