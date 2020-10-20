@@ -1,19 +1,17 @@
 const gulp = require('gulp');
 const ts = require('gulp-typescript');
-const screeps = require('gulp-screeps');
+const watch = require('gulp-watch');
 const config = require('./config/index');
 const tsProject = ts.createProject('tsconfig.json');
 
-gulp.task('screeps', done => {
-    gulp.src('dist/**/*.js').pipe(screeps(config));
+gulp.task('resolve', done => {
+    tsProject.src().pipe(tsProject()).js.pipe(gulp.dest(config.PATH));
     done();
 });
 
-gulp.task('resolve', done => {
-    tsProject.src().pipe(tsProject()).js.pipe(gulp.dest('dist'));
+gulp.task('watch', done => {
+    watch('src/**', gulp.series('resolve'));
     done();
 });
  
-gulp.task('default', gulp.series('resolve', 'screeps', done => {
-    done();
-}));
+gulp.task('default', gulp.series('resolve', 'watch'));

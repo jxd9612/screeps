@@ -7,8 +7,8 @@
     "@types/lodash": "^3.10.1",
     "@types/screeps": "^3.2.1",
     "gulp": "^4.0.2",
-    "gulp-screeps": "^1.0.8",
     "gulp-typescript": "^6.0.0-alpha.1",
+    "gulp-watch": "^5.0.1",
     "typescript": "^4.0.3"
   },
   "scripts": {
