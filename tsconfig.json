@@ -1,6 +1,6 @@
 {
     "files": [
-        "src/**"
+        "src/**",
     ],
     "compilerOptions": {
         "noImplicitAny": true,
