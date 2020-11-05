@@ -7,7 +7,6 @@ export enum ROLE_TYPE {
     TRANSPORTER, // 运输者
 }
 
-
 // 角色状态
 export enum ROLE_STATUS {
     AT_IDLE, // 空闲中

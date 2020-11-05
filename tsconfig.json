@@ -1,10 +1,8 @@
 {
-    "files": [
-        "src/**",
-    ],
+    "files": ["src/**"],
     "compilerOptions": {
         "removeComments": true, // 是否移除注释
         "noImplicitAny": true,
-        "target": "es5",
+        "target": "es5"
     }
 }

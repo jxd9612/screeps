@@ -1,12 +1,20 @@
-import utils from "./utils";
+import utils from './utils';
 
 import './init';
 
-function main(): void{
+import { ROLE_STATUS } from './constants';
+
+function main(): void {
+    return;
     // 清除
     utils.cleanMemoryCreep();
 
-    // utils.initCreep();
+    Object.keys(Game.rooms).forEach((roomName: string): void => {
+        utils.bluePrint(roomName);
+    });
+    // if (utils.getAllCreepNumber() < ROLE_NUMBER.TOTAL) {
+    //     utils.spawnCreep();
+    // }
     // console.log(utils.getHarvesterMineralNum());
 }
 
