@@ -1,0 +1,26 @@
+{
+  "name": "screepscode",
+  "version": "0.0.1",
+  "description": "my screeps code",
+  "devDependencies": {
+    "rollup-plugin-typescript2": "^0.30.0",
+    "typescript": "^4.4.4"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "rollup --config -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jxd9612/screeps.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jxd9612/screeps/issues"
+  },
+  "homepage": "https://github.com/jxd9612/screeps#readme",
+  "dependencies": {
+    "rollup-plugin-screeps": "^1.0.1"
+  }
+}
